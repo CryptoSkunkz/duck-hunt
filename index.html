@@ -2,10 +2,17 @@
 <html>
 <head>
   <title>Duck Hunt</title>
+  <style>
+    /* make the canvas take up the full width and height of the viewport */
+    canvas {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
 </head>
 <body>
   <h1>Duck Hunt</h1>
-  <canvas id="gameCanvas" width="500" height="500"></canvas>
+  <canvas id="gameCanvas"></canvas>
   <br>
   <button id="startButton">Start</button>
   <button id="shootButton">Shoot</button>
@@ -62,15 +69,3 @@
         requestAnimationFrame(update);
       } else {
         // display game over message
-        gameOverEl.style.display = 'block';
-      }
-    }
-    // start game when start button is clicked
-    startButton.addEventListener('click', function() {
-      // hide start button and game over message
-      startButton.style.display = 'none';
-      gameOverEl.style.display = 'none';
-      // reset score and gameOver flag
-      score = 0;
-      gameOver = false;
-      // start game loop
