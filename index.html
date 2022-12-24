@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Duck Hunt</title>
+</head>
+<body>
+  <h1>Duck Hunt</h1>
+  <canvas id="gameCanvas" width="500" height="500"></canvas>
+  <br>
+  <button id="startButton">Start</button>
+  <button id="shootButton">Shoot</button>
+  <br>
+  <p id="score">Score: 0</p>
+  <p id="gameOver">Game Over</p>
+
+  <script>
+    // initialize variables
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const startButton = document.getElementById('startButton');
+    const shootButton = document.getElementById('shootButton');
+    const scoreEl = document.getElementById('score');
+    const gameOverEl = document.getElementById('gameOver');
+    let score = 0;
+    let gameOver = false;
+    let mouseX;
+    let mouseY;
+    // duck image
+    const duckImage = new Image();
+    duckImage.src = 'https://i.imgur.com/8cMtFoc.png';
+
+    // duck object
+    const duck = {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      width: 50,
+      height: 50,
+      speed: 5,
+      direction: 1,
+      update: function() {
+        // change direction when reaching the edge of the canvas
+        if (this.x > canvas.width - this.width || this.x < 0) {
+          this.direction *= -1;
+        }
+        this.x += this.speed * this.direction;
+      },
+      draw: function() {
+        ctx.drawImage(duckImage, this.x, this.y, this.width, this.height);
+      }
+    };
+    // game loop
+    function update() {
+      if (!gameOver) {
+        // clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // update and draw duck
+        duck.update();
+        duck.draw();
+
+        // request next frame
+        requestAnimationFrame(update);
+      } else {
+        // display game over message
+        gameOverEl.style.display = 'block';
+      }
+    }
+    // start game when start button is clicked
+    startButton.addEventListener('click', function() {
+      // hide start button and game over message
+      startButton.style.display = 'none';
+      gameOverEl.style.display = 'none';
+      // reset score and gameOver flag
+      score = 0;
+      gameOver = false;
+      // start game loop
