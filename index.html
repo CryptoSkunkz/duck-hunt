@@ -8,6 +8,13 @@
       width: 100vw;
       height: 100vh;
     }
+
+    /* style the buttons to be larger and responsive */
+    button {
+      font-size: 3vmin;
+      padding: 1vmin 2vmin;
+      border-radius: 1vmin;
+    }
   </style>
 </head>
 <body>
@@ -32,6 +39,7 @@
     let gameOver = false;
     let mouseX;
     let mouseY;
+
     // duck image
     const duckImage = new Image();
     duckImage.src = 'https://i.imgur.com/8cMtFoc.png';
